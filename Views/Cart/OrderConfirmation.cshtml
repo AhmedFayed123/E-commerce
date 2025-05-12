@@ -1,0 +1,67 @@
+﻿@model eStore.Models.Order
+
+@{
+    ViewData["Title"] = "Order Confirmation";
+}
+
+<div>
+    <section class="container mt-5">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h2>Order Confirmation</h2>
+            </div>
+            <div class="card-body">
+                <p>Thank you for your purchase! Your order has been placed successfully.</p>
+
+                <h5 class="mt-4">Order Summary</h5>
+                <p><strong>Order Reference:</strong> @Model.ReferenceNumber</p>
+                <p><strong>Date:</strong> @Model.Date.ToString("yyyy-MM-dd HH:mm")</p>
+
+                <table class="table table-bordered mt-3">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Product</th>
+                            <th>Description</th>
+                            <th>Unit Price</th>
+                            <th>Quantity</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OrderDetails)
+                        {
+                        <tr>
+                            <td>@item.Product?.Name</td>
+                            <td>@item.Product?.ShortDescription</td>
+                            <td>$@item.ItemPriceAfterDiscount</td>
+                            <td>@item.Quantity</td>
+                            <td>
+                                @{
+                                var unitPrice = item.ItemPriceAfterDiscount ?? item.ItemPrice ?? 0;
+                                var qty = item.Quantity ?? 0;
+                                var subtotal = unitPrice * qty;
+                                }
+                                $@subtotal.ToString("0.00")
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="4" class="text-end">Total:</th>
+                            <th>
+                                $@Model.OrderDetails.Sum(od =>
+                                (od.ItemPriceAfterDiscount ?? od.ItemPrice ?? 0) * (od.Quantity ?? 0)
+                                ).ToString("0.00")
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <div class="mt-4">
+                    <a class="btn btn-primary" href="@Url.Action("Products", "Home")">Continue Shopping</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

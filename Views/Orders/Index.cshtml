@@ -1,0 +1,59 @@
+﻿@model List<eStore.Models.Order>
+
+@{
+    ViewData["Title"] = "My Orders";
+}
+
+<div class="container" id="indexxxx">
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <h2>My Orders</h2>
+
+    @if (!Model.Any())
+    {
+    <p>You have no past orders.</p>
+    }
+    else
+    {
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Order #</th>
+                <th>Date</th>
+                <th>Total</th>
+                <th>Items</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+            var total = order.OrderDetails.Sum(d => d.ItemPriceAfterDiscount ?? d.ItemPrice ?? 0 * d.Quantity ?? 1);
+            <tr>
+                <td>@order.ReferenceNumber</td>
+                <td>@order.Date.ToShortDateString()</td>
+                <td>$@total</td>
+                <td>
+                    <ul>
+                        @foreach (var item in order.OrderDetails)
+                        {
+                        <li>@item.Product?.Name (@item.Quantity)</li>
+                        }
+                    </ul>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    }
+
+    <br />
+    <br />
+    <br />
+    <br />
+
+</div>

@@ -1,0 +1,103 @@
+﻿@model eStore.Models.Product
+
+@{
+	ViewData["Title"] = "Edit";
+}
+<div class="container" id="edit">
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<h1>Edit</h1>
+
+	<h4>Product</h4>
+	<hr />
+	<div class="row">
+		<div class="col-md-4">
+			<form asp-action="Edit">
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+				<input type="hidden" asp-for="Id" />
+				<div class="form-group" style="margin-bottom:20px;">
+					<label asp-for="Name" class="control-label"></label>
+					<input asp-for="Name" class="form-control" />
+					<span asp-validation-for="Name" class="text-danger"></span>
+				</div>
+				<div class="form-group" style="margin-bottom:20px;">
+					<label asp-for="ShortDescription" class="control-label"></label>
+					<input asp-for="ShortDescription" class="form-control" />
+					<span asp-validation-for="ShortDescription" class="text-danger"></span>
+				</div>
+				<div class="form-group" style="margin-bottom:20px;">
+					<label asp-for="Description" class="control-label"></label>
+					<input asp-for="Description" class="form-control" />
+					<span asp-validation-for="Description" class="text-danger"></span>
+				</div>
+				<div class="form-group" style="margin-bottom:20px;">
+					<label asp-for="CurrentPrice" class="control-label"></label>
+					<input asp-for="CurrentPrice" class="form-control" />
+					<span asp-validation-for="CurrentPrice" class="text-danger"></span>
+				</div>
+				<div class="form-group" style="margin-bottom:20px;">
+					<label class="control-label">Brand</label>
+					<select asp-for="BrandId" class="form-control" asp-items="ViewBag.BrandId"></select>
+					<span asp-validation-for="BrandId" class="text-danger"></span>
+				</div>
+				<div class="form-group" style="margin-bottom:20px;">
+					<label class="control-label">Category</label>
+					<select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+					<span asp-validation-for="CategoryId" class="text-danger"></span>
+				</div>
+				<div class="form-group" style="margin-bottom:20px;">
+					<label asp-for="CreatedDate" class="control-label" ></label>
+					<input asp-for="CreatedDate" class="form-control" readonly/>
+					<span asp-validation-for="CreatedDate" class="text-danger"></span>
+				</div>
+				<div class="form-group" style="margin-bottom:20px;">
+					<label asp-for="LastModifiedDate" class="control-label"></label>
+					<input asp-for="LastModifiedDate" class="form-control" />
+					<span asp-validation-for="LastModifiedDate" class="text-danger"></span>
+				</div>
+				<div class="form-group" style="margin-bottom:20px;">
+					<label asp-for="DeletedDate" class="control-label"></label>
+					<input asp-for="DeletedDate" class="form-control" readonly/>
+					<span asp-validation-for="DeletedDate" class="text-danger"></span>
+				</div>
+				<div class="form-group" style="margin-bottom:20px;">
+					<label asp-for="CreatedBy" class="control-label"></label>
+					<input asp-for="CreatedBy" class="form-control" />
+					<span asp-validation-for="CreatedBy" class="text-danger"></span>
+				</div>
+				<div class="form-group" style="margin-bottom:20px;">
+					<label asp-for="ModifiedBy" class="control-label"></label>
+					<input asp-for="ModifiedBy" class="form-control" />
+					<span asp-validation-for="ModifiedBy" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<label asp-for="IsNotActive" class="control-label"></label>
+					<input asp-for="IsNotActive" class="form-control" />
+					<span asp-validation-for="IsNotActive" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+					<input type="submit" value="Save" class="btn btn-primary" style="margin-bottom:18px; margin-top:12px;" />
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div>
+		<a href="/Products/Index#indexx" class="btn btn-dark">Back to List</a>
+	</div>
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

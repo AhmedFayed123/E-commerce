@@ -1,0 +1,52 @@
+﻿@model List<Cart>
+<div class="container" id="indexxx">
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<h2>Your Cart</h2>
+
+	<table class="table">
+		<tr>
+			<th>Product</th>
+			<th>Quantity</th>
+			<th>Price</th>
+			<th>Actions</th>
+		</tr>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>@item.Product.Name</td>
+				<td>@item.Quantity</td>
+				<td>@item.Product.CurrentPrice</td>
+				<td>
+					<form asp-action="RemoveFromCart" method="post">
+						<input type="hidden" name="cartId" value="@item.Id" />
+						<button type="submit" class="btn btn-danger">Remove</button>
+					</form>
+				</td>
+			</tr>
+		}
+	</table>
+
+	<form asp-action="PlaceOrder" asp-controller="Cart" method="post">
+		<button type="submit" class="btn btn-primary">Place Order</button>
+	</form>
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+
+	<br />
+
+	<br />
+	<br />
+</div>

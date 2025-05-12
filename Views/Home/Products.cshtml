@@ -1,0 +1,107 @@
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@model List<Product>
+@{
+	var selectedCategory = HttpContextAccessor.HttpContext?.Request.Query["category"].ToString();
+	var defaultFilter = !string.IsNullOrEmpty(selectedCategory)
+		? ".filter-" + selectedCategory.ToLower().Replace(" ", "-").Replace("&", "").Replace(",", "").Replace(".", "")
+		: "*";
+}
+
+
+<section id="products" class="portfolio section">
+	<link href="~/assets/css/mystyle.css" rel="stylesheet">
+	<!-- Section Title -->
+	<div class="container section-title" data-aos="fade-up">
+		<h2>Products</h2>
+		<p>Browse our curated product selection: cutting-edge tech, quality brands, and unbeatable deals!</p>
+	</div><!-- End Section Title -->
+
+	<div class="container">
+
+		<div class="isotope-layout" data-default-filter="@defaultFilter" data-layout="masonry" data-sort="original-order">
+@* 			<form method="get" asp-action="Products" class="mb-4">
+	<div class="row g-2 align-items-center">
+		<div class="col-md-4">
+			<input type="text" name="search" class="form-control" placeholder="Search products..." value="@HttpContextAccessor.HttpContext?.Request.Query["search"]"
+ />
+		</div>
+		<div class="col-md-2">
+			<input type="number" name="minPrice" class="form-control" placeholder="Min Price" value="@HttpContextAccessor.HttpContext?.Request.Query["minPrice"]" />
+		</div>
+		<div class="col-md-2">
+			<input type="number" name="maxPrice" class="form-control" placeholder="Max Price" value="@HttpContextAccessor.HttpContext?.Request.Query["maxPrice"]" />
+		</div>
+		<div class="col-md-2">
+						@{
+							string selectedCategory = HttpContextAccessor.HttpContext?.Request.Query["category"];
+						}
+					<select name="category" class="form-select">
+
+				<option value="laptops" selected="@(selectedCategory == "laptops" ? "selected" : null)">Laptops</option>
+				<option value="mobile phones" selected="@(selectedCategory == "mobile phones" ? "selected" : null)">Mobile Phones</option>
+				<option value="tablets" selected="@(selectedCategory == "tablets" ? "selected" : null)">Tablets</option>
+				<option value="headphones" selected="@(selectedCategory == "headphones" ? "selected" : null)">Headphones</option>
+				<option value="gaming consoles" selected="@(selectedCategory == "gaming consoles" ? "selected" : null)">Gaming Consoles</option>
+				<option value="computer accessories" selected="@(selectedCategory == "computer accessories" ? "selected" : null)">Computer Accessories</option>
+			</select>
+		</div>
+		<div class="col-md-2">
+			<button type="submit" class="btn btn-success w-100">Filter</button>
+		</div>
+	</div>
+</form> *@
+
+
+			<ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
+				<li data-filter="*" class="@(string.IsNullOrEmpty(selectedCategory) ? "filter-active" : "")">All</li>
+				<li data-filter=".filter-laptops" class="@(selectedCategory == "laptops" ? "filter-active" : "")">Laptops</li>
+				<li data-filter=".filter-mobile-phones" class="@(selectedCategory == "mobile-phones" ? "filter-active" : "")">Mobile Phones</li>
+				<li data-filter=".filter-tablets" class="@(selectedCategory == "tablets" ? "filter-active" : "")">Tablets</li>
+				<li data-filter=".filter-headphones" class="@(selectedCategory == "headphones" ? "filter-active" : "")">Headphones</li>
+				<li data-filter=".filter-gaming-consoles" class="@(selectedCategory == "gaming-consoles" ? "filter-active" : "")">Gaming Consoles</li>
+				<li data-filter=".filter-computer-accessories" class="@(selectedCategory == "computer-accessories" ? "filter-active" : "")">Computer Accessories</li>
+			</ul>
+
+
+			<div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+
+				@foreach (var product in Model)
+				{
+					var imageUrl = product.ProductImages.FirstOrDefault()?.ImageUrl ?? "No Image";
+					var categoryClass = "filter-" + (product.Category?.Name?.ToLower().Replace(" ", "-") ?? "uncategorized");
+
+								<div class="col-lg-4 col-md-6 portfolio-item isotope-item @categoryClass">
+									<div class="portfolio-content h-100 products">
+										<a href="@imageUrl" data-gallery="portfolio-gallery" class="glightbox">
+
+											<div style="height: 250px; display: flex; justify-content: center; align-items: center; background-color: #f9f9f9;">
+												<img src="@Url.Content(imageUrl)" class="img-fluid" style="max-height: 100%; max-width: 100%; object-fit: contain;" alt="@product.Name" />
+											</div>
+
+										</a>
+										<div class="portfolio-info">
+											<h4><a href="#" title="More Details">@product.Name</a></h4>
+											<p>@product.ShortDescription</p>
+											<p><strong>Price:</strong> $@product.CurrentPrice</p>
+											<p><strong>Brand:</strong> @product.Brand?.Name</p>
+
+											<form asp-controller="Cart" asp-action="AddToCart" method="post">
+												<input type="hidden" name="productId" value="@product.Id" />
+												<input type="number" name="quantity" value="1" min="1" style="width: 45px;" />
+												<button type="submit" class="btn btn-primary mt-2">Add to Cart</button>
+											</form>
+										</div>
+
+									</div>
+								</div>
+
+								<!-- End Portfolio Item -->
+				}<!-- End Portfolio Item -->
+			</div>
+		</div>
+
+	</div>
+
+</section><!-- /Portfolio Section -->
+

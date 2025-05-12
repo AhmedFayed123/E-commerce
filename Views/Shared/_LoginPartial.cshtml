@@ -1,0 +1,39 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ApplicationUser currentUser = null;
+    if (SignInManager.IsSignedIn(User))
+    {
+        currentUser = await UserManager.GetUserAsync(User);
+    }
+}
+
+@if (currentUser != null)
+{
+    if (currentUser.ProfilePicture != null)
+    {
+        <li class="nav-item">
+            <img style="margin-left:10px; margin-right:1px; width:40px; height:40px; object-fit:cover;" class="rounded-circle" alt="profile" src="data:image/*;base64,@(Convert.ToBase64String(currentUser.ProfilePicture))" />
+        </li>
+    }
+    <li class="nav-item">
+        <a id="manage" class="nav-link text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @currentUser.UserName!</a>
+    </li>
+    <li class="nav-item">
+        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <button id="logout" type="submit" class="nav-link btn btn-link border-0 text-white">Logout</button>
+        </form>
+    </li>
+}
+else
+{
+    <li>
+        <a href="/Identity/Account/Register#register" class="nav-link text-white" id="register">Register</a>
+    </li>
+    <li>
+        <a href="/Identity/Account/Login#login" class="nav-link text-white" id="login">Login</a>
+    </li>
+}

@@ -1,0 +1,43 @@
+﻿@model List<Category>
+
+<section id="categories" class="services section">
+
+	<!-- Section Title -->
+	<div class="container section-title" data-aos="fade-up">
+		<h2>Categories</h2>
+		<p>Discover the latest in tech! Browse top categories like laptops, phones, cameras, and more — everything you need to upgrade your digital life.</p>
+	</div><!-- End Section Title -->
+
+	<div class="container">
+
+		<div class="row gy-4">
+			@foreach (var item in Model)
+			{
+				var slug = item.Name?.ToLower().Replace(" ", "-");
+
+				<div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay="100">
+					<div class="service-item d-flex">
+						<div class="icon flex-shrink-0"><i class="bi @item.ImageUrl"></i></div>
+						<div>
+							<h4 class="title">
+								<a href="/Home/Products?category=@slug#products" class="stretched-link">
+									@item.Name@* a asp-controller="Products"
+								   asp-action="Products"
+								   asp-route-category="@slug"
+								   asp-fragment="products"
+								   class="stretched-link">
+									@item.Name *@
+								</a>
+							</h4>
+							<p class="description">@item.Description</p>
+						</div>
+					</div>
+				</div>
+			}
+			<!-- End Service Item -->
+
+		</div>
+
+	</div>
+
+</section><!-- /Services Section -->
