@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "D:\\depi project\\eStore\\eStore.csproj": {}
+    "C:\\Users\\10\\Source\\Repos\\E-commerce\\eStore.csproj": {}
   },
   "projects": {
-    "D:\\depi project\\eStore\\eStore.csproj": {
+    "C:\\Users\\10\\Source\\Repos\\E-commerce\\eStore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\depi project\\eStore\\eStore.csproj",
+        "projectUniqueName": "C:\\Users\\10\\Source\\Repos\\E-commerce\\eStore.csproj",
         "projectName": "eStore",
-        "projectPath": "D:\\depi project\\eStore\\eStore.csproj",
-        "packagesPath": "C:\\Users\\ascom\\.nuget\\packages\\",
-        "outputPath": "D:\\depi project\\eStore\\obj\\",
+        "projectPath": "C:\\Users\\10\\Source\\Repos\\E-commerce\\eStore.csproj",
+        "packagesPath": "C:\\Users\\10\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\10\\Source\\Repos\\E-commerce\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\ascom\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\10\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -39,7 +43,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -101,7 +106,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.312/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
